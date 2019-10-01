@@ -34,6 +34,7 @@ async function main() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway()
+
         await gateway.connect(ccpPath, {
             wallet,
             identity: 'user1',
@@ -46,19 +47,16 @@ async function main() {
         // Get the contract from the network.
         const contract = network.getContract('fabcar')
 
-        await contract.submitTransaction(
-            'addCustomer',
-            'U01',
-            'Jaison',
-            'John',
-            '685589'
+        const result = await contract.evaluateTransaction(
+            'getInsuranceDetails',
+            'CAR01'
         )
-        console.log('Transaction has been submitted')
-
-        // Disconnect from the gateway.
-        await gateway.disconnect()
+        console.log('result**', result)
+        console.log(
+            `Transaction has been evaluated, result is: ${result.toString()}`
+        )
     } catch (error) {
-        console.error(`Failed to submit transaction: ${error}`)
+        console.error(`Failed to evaluate transaction: ${error}`)
         process.exit(1)
     }
 }
