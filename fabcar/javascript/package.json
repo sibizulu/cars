@@ -16,10 +16,14 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@hapi/hapi": "^18.3.2",
+        "@hapi/inert": "^5.2.2",
         "@hapi/joi": "^15.1.1",
+        "@hapi/vision": "^5.5.4",
         "crypto": "^1.0.1",
         "fabric-ca-client": "~1.4.0",
         "fabric-network": "~1.4.0",
+        "hapi": "^18.1.0",
+        "hapi-swagger": "^10.1.2",
         "relish": "^3.0.0"
     },
     "devDependencies": {
