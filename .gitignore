@@ -9,3 +9,6 @@
 /config
 .DS_Store
 .project
+
+
+**/connection-org1.json
