@@ -3,7 +3,9 @@
 const Hapi = require('@hapi/hapi')
 const Joi = require('@hapi/joi')
 const util = require('./util')
-
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const HapiSwagger = require('hapi-swagger');
 // load the package and set custom message options
 const Relish = require('relish')({
     messages: {
@@ -45,22 +47,46 @@ const init = async () => {
         host: 'localhost'
     })
 
+    const swaggerOptions = {
+        info: {
+            title: 'Test API Documentation',
+            version: Pack.version,
+        },
+    };
+
+    await server.register([
+        Inert,
+        Vision,
+        {
+            plugin: HapiSwagger,
+            options: swaggerOptions
+        },
+
+    ]);
+
     server.route({
         method: 'GET',
         path: '/',
-        handler: (request, h) => {
-            return 'Baseurl'
+        options: {
+            handler: (request, h) => {
+                return 'Baseurl'
+            },
+            tags: ['api']
         }
+
     })
 
     server.route({
         method: 'GET',
         path: '/all/{user}',
-        handler: (request, h) => {
-            const params = request.params
-            const res = util.getAllDetails(params.user)
+        options: {
+            handler: (request, h) => {
+                const params = request.params
+                const res = util.getAllDetails(params.user)
 
-            return h.response({ userId: res, success: true })
+                return h.response({ userId: res, success: true })
+            },
+            tags: ['api']
         }
     })
 
@@ -88,7 +114,8 @@ const init = async () => {
                     CoverageDetail: Joi.string().required()
                 },
                 failAction: Relish.failAction
-            }
+            },
+            tags: ['api']
         }
     })
 
@@ -117,7 +144,8 @@ const init = async () => {
                     description: Joi.string().required()
                 },
                 failAction: Relish.failAction
-            }
+            },
+            tags: ['api']
         }
     })
 
@@ -138,7 +166,8 @@ const init = async () => {
                     regionCode: Joi.number().required()
                 },
                 failAction: Relish.failAction
-            }
+            },
+            tags: ['api']
         }
     })
 
@@ -164,7 +193,8 @@ const init = async () => {
                     sellAlert: Joi.string().required()
                 },
                 failAction: Relish.failAction
-            }
+            },
+            tags: ['api']
         }
     })
 
