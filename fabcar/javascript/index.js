@@ -3,9 +3,10 @@
 const Hapi = require('@hapi/hapi')
 const Joi = require('@hapi/joi')
 const util = require('./util')
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
+const Inert = require('@hapi/inert')
+const Vision = require('@hapi/vision')
+const HapiSwagger = require('hapi-swagger')
+const Pack = require('./package')
 // load the package and set custom message options
 const Relish = require('relish')({
     messages: {
@@ -50,9 +51,11 @@ const init = async () => {
     const swaggerOptions = {
         info: {
             title: 'Test API Documentation',
-            version: Pack.version,
+            version: Pack.version
         },
-    };
+        basePath: '/',
+        documentationPath: '/docs'
+    }
 
     await server.register([
         Inert,
@@ -60,9 +63,8 @@ const init = async () => {
         {
             plugin: HapiSwagger,
             options: swaggerOptions
-        },
-
-    ]);
+        }
+    ])
 
     server.route({
         method: 'GET',
@@ -73,7 +75,6 @@ const init = async () => {
             },
             tags: ['api']
         }
-
     })
 
     server.route({
