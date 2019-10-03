@@ -67,7 +67,7 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/',
-        options: {
+        config: {
             handler: (request, h) => {
                 return 'Baseurl'
             },
@@ -80,7 +80,7 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/all/{user}',
-        options: {
+        config: {
             handler: (request, h) => {
                 const params = request.params
                 const res = util.getAllDetails(params.user)
@@ -105,7 +105,7 @@ const init = async () => {
 
             return h.response({ success: true })
         },
-        options: {
+        config: {
             validate: {
                 payload: {
                     userId: Joi.string().required(),
@@ -135,7 +135,7 @@ const init = async () => {
 
             return h.response({ success: true })
         },
-        options: {
+        config: {
             validate: {
                 payload: {
                     userId: Joi.string().required(),
@@ -166,7 +166,7 @@ const init = async () => {
 
             return h.response({ userID: res, success: true })
         },
-        options: {
+        config: {
             validate: {
                 payload: {
                     firstName: Joi.string().required(),
@@ -189,7 +189,7 @@ const init = async () => {
 
             return h.response({ carID: res, success: true })
         },
-        options: {
+        config: {
             validate: {
                 payload: {
                     userID: Joi.string().required(),
