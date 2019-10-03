@@ -67,6 +67,9 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/',
+        config: {
+            description: 'Root url'
+        },
         options: {
             handler: (request, h) => {
                 return 'Baseurl'
@@ -79,6 +82,10 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/all/{user}',
+        config: {
+            description: 'Displays user details',
+            notes: 'Returns details of the user'
+        },
         options: {
             handler: (request, h) => {
                 const params = request.params
@@ -93,6 +100,9 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/service',
+        config: {
+            description: 'Fill service form'
+        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addService(payload)
@@ -122,6 +132,9 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/insurance',
+        config: {
+            description: 'Fill insurance form'
+        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addInsurance(payload)
@@ -152,6 +165,9 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/user',
+        config: {
+            description: 'Add a new user'
+        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addUser(payload)
@@ -174,6 +190,9 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/car',
+        config: {
+            description: 'Add a new car'
+        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addCar(payload)
