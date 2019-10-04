@@ -68,18 +68,6 @@ const init = async () => {
 
     server.route({
         method: 'GET',
-        path: '/',
-        options: {
-            handler: (request, h) => {
-                return 'Baseurl'
-            },
-            tags: ['api'],
-            description: 'Root url'
-        }
-    })
-
-    server.route({
-        method: 'GET',
         path: '/all/{user}',
         options: {
             handler: (request, h) => {
@@ -120,7 +108,7 @@ const init = async () => {
                 failAction: Relish.failAction
             },
             tags: ['api'],
-            description: 'Fill service form'
+            description: 'Add service details'
         }
     })
 
@@ -152,7 +140,7 @@ const init = async () => {
                 failAction: Relish.failAction
             },
             tags: ['api'],
-            description: 'Fill insurance form'
+            description: 'Add Insurance Details'
         }
     })
 
