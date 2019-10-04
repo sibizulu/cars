@@ -67,7 +67,7 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/',
-        config: {
+        options: {
             handler: (request, h) => {
                 return 'Baseurl'
             },
@@ -80,7 +80,7 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/all/{user}',
-        config: {
+        options: {
             handler: (request, h) => {
                 const params = request.params
                 const res = util.getAllDetails(params.user)
@@ -96,16 +96,13 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/service',
-        config: {
-            description: 'Fill service form'
-        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addService(payload)
 
             return h.response({ success: true })
         },
-        config: {
+        options: {
             validate: {
                 payload: {
                     userId: Joi.string().required(),
@@ -121,7 +118,8 @@ const init = async () => {
                 },
                 failAction: Relish.failAction
             },
-            tags: ['api']
+            tags: ['api'],
+            description: 'Fill service form'
         }
     })
 
@@ -135,7 +133,7 @@ const init = async () => {
 
             return h.response({ success: true })
         },
-        config: {
+        options: {
             validate: {
                 payload: {
                     userId: Joi.string().required(),
@@ -166,7 +164,7 @@ const init = async () => {
 
             return h.response({ userID: res, success: true })
         },
-        config: {
+        options: {
             validate: {
                 payload: {
                     firstName: Joi.string().required(),
@@ -189,7 +187,7 @@ const init = async () => {
 
             return h.response({ carID: res, success: true })
         },
-        config: {
+        options: {
             validate: {
                 payload: {
                     userID: Joi.string().required(),
