@@ -97,9 +97,6 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/service',
-        config: {
-            description: 'Fill service form'
-        },
         handler: async (request, h) => {
             const payload = request.payload
             const res = await util.addService(payload)
@@ -122,7 +119,8 @@ const init = async () => {
                 },
                 failAction: Relish.failAction
             },
-            tags: ['api']
+            tags: ['api'],
+            description: 'Fill service form'
         }
     })
 
