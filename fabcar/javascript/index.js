@@ -70,11 +70,15 @@ const init = async () => {
         method: 'GET',
         path: '/all/{user}',
         options: {
-            handler: (request, h) => {
+            handler: async (request, h) => {
                 const params = request.params
-                const res = util.getAllDetails(params.user)
-
+                const res = await util.getAllDetails(params.user)
                 return h.response({ userId: res, success: true })
+            },
+            validate: {
+                params: {
+                    user: Joi.string().required()
+                }
             },
             tags: ['api'],
             description: 'Displays user details',
@@ -85,17 +89,49 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/service',
-        handler: async (request, h) => {
-            const payload = request.payload
-            const res = await util.addService(payload)
-
-            return h.response({ success: true })
-        },
         options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                const res = await util.addService(payload)
+
+                return h.response({ success: true })
+            },
             validate: {
                 payload: {
-                    userId: Joi.string().required(),
-                    carId: Joi.string().required(),
+                    userID: Joi.string().required(),
+                    carID: Joi.string().required(),
+                    serviceNo: Joi.string().required(),
+                    serviceType: Joi.string().required(),
+                    milesSchedule: Joi.string().required(),
+                    daysSchedule: Joi.string().required(),
+                    milesActuals: Joi.string().required(),
+                    daysActuals: Joi.string().required(),
+                    serviceFlag: Joi.string().required(),
+                    repairAmount: Joi.string().required(),
+                    description: Joi.string().required()
+                },
+
+                failAction: Relish.failAction
+            },
+            tags: ['api'],
+            description: 'Add service details'
+        }
+    })
+
+    server.route({
+        method: 'POST',
+        path: '/insurance',
+        options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                const res = await util.addInsurance(payload)
+
+                return h.response({ success: true })
+            },
+            validate: {
+                payload: {
+                    userID: Joi.string().required(),
+                    carID: Joi.string().required(),
                     id: Joi.string().required(),
                     insuranceId: Joi.string().required(),
                     policyNumber: Joi.string().required(),
@@ -108,38 +144,6 @@ const init = async () => {
                 failAction: Relish.failAction
             },
             tags: ['api'],
-            description: 'Add service details'
-        }
-    })
-
-    server.route({
-        method: 'POST',
-        path: '/insurance',
-
-        handler: async (request, h) => {
-            const payload = request.payload
-            const res = await util.addInsurance(payload)
-
-            return h.response({ success: true })
-        },
-        options: {
-            validate: {
-                payload: {
-                    userId: Joi.string().required(),
-                    carId: Joi.string().required(),
-                    serviceNo: Joi.string().required(),
-                    serviceType: Joi.string().required(),
-                    milesSchedule: Joi.string().required(),
-                    daysSchedule: Joi.string().required(),
-                    milesActuals: Joi.string().required(),
-                    daysActuals: Joi.string().required(),
-                    serviceFlag: Joi.string().required(),
-                    repairAmount: Joi.string().required(),
-                    description: Joi.string().required()
-                },
-                failAction: Relish.failAction
-            },
-            tags: ['api'],
             description: 'Add Insurance Details'
         }
     })
@@ -147,13 +151,13 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/user',
-        handler: async (request, h) => {
-            const payload = request.payload
-            const res = await util.addUser(payload)
-
-            return h.response({ userID: res, success: true })
-        },
         options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                const res = await util.addUser(payload)
+
+                return h.response({ userID: res, success: true })
+            },
             validate: {
                 payload: {
                     firstName: Joi.string().required(),
@@ -170,13 +174,13 @@ const init = async () => {
     server.route({
         method: 'POST',
         path: '/car',
-        handler: async (request, h) => {
-            const payload = request.payload
-            const res = await util.addCar(payload)
-
-            return h.response({ carID: res, success: true })
-        },
         options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                const res = await util.addCar(payload)
+
+                return h.response({ carID: res, success: true })
+            },
             validate: {
                 payload: {
                     userID: Joi.string().required(),
