@@ -162,7 +162,7 @@ const init = async () => {
                 payload: {
                     firstName: Joi.string().required(),
                     lastName: Joi.string().required(),
-                    regionCode: Joi.number().required()
+                    regionCode: Joi.string().required()
                 },
                 failAction: Relish.failAction
             },

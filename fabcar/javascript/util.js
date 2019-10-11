@@ -36,7 +36,7 @@ const addUser = async data => {
             id,
             data.firstName,
             data.lastName,
-            data.regionCode.toString()
+            data.regionCode
         )
         console.log('Transaction has been submitted')
 
