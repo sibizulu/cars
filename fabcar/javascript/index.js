@@ -50,7 +50,7 @@ const init = async () => {
 
     const swaggerOptions = {
         info: {
-            title: 'Test API Documentation',
+            title: 'API Documentation',
             version: Pack.version
         },
         basePath: '/',
@@ -196,6 +196,31 @@ const init = async () => {
             },
             tags: ['api'],
             description: 'Add a new car'
+        }
+    })
+
+    server.route({
+        method: 'POST',
+        path: '/test',
+        options: {
+            handler: async (request, h) => {
+                return h.response({ message: 'Post method success' })
+            },
+            tags: ['api'],
+            description: 'Sample post'
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/test',
+        options: {
+            handler: async (request, h) => {
+                return h.response({ message: 'GET success' })
+            },
+
+            tags: ['api'],
+            description: 'Sample GET'
         }
     })
 
