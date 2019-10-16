@@ -36,6 +36,7 @@ class FabCar extends Contract {
         modelCode,
         modelName,
         carMake,
+        carRegistrationNo,
         carChasisNo,
         buybackValue,
         sellAlert
@@ -46,6 +47,7 @@ class FabCar extends Contract {
             modelCode,
             modelName,
             carMake,
+            carRegistrationNo,
             carChasisNo,
             buybackValue,
             sellAlert,
@@ -71,6 +73,7 @@ class FabCar extends Contract {
         carId,
         serviceNo,
         serviceType,
+        servicedDate,
         milesSchedule,
         daysSchedule,
         milesActuals,
@@ -82,6 +85,7 @@ class FabCar extends Contract {
         const serviceObject = {
             serviceNo,
             serviceType,
+            servicedDate,
             milesSchedule,
             daysSchedule,
             milesActuals,
