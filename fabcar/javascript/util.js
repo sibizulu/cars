@@ -198,4 +198,41 @@ const getAllDetails = async userID => {
         process.exit(1)
     }
 }
-module.exports = { addUser, addCar, addService, addInsurance, getAllDetails }
+const updateBuyBackValue = async data => {
+    try {
+        const walletPath = path.join(process.cwd(), 'wallet')
+        const wallet = new FileSystemWallet(walletPath)
+        const userExists = await wallet.exists('user1')
+        if (!userExists) {
+            return
+        }
+        const gateway = new Gateway()
+        await gateway.connect(ccpPath, {
+            wallet,
+            identity: 'user1',
+            discovery: { enabled: true, asLocalhost: true }
+        })
+        const network = await gateway.getNetwork('mychannel')
+        const contract = network.getContract('fabcar')
+        const k = await contract.submitTransaction(
+            'updateBuyBackValue',
+            data.userID,
+            data.carID,
+            data.buybackValue
+        )
+        console.log('Transaction has been submitted', k.toString())
+        await gateway.disconnect()
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`)
+        process.exit(1)
+    }
+}
+
+module.exports = {
+    addUser,
+    addCar,
+    addService,
+    addInsurance,
+    getAllDetails,
+    updateBuyBackValue
+}
