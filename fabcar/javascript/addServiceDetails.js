@@ -61,6 +61,7 @@ async function main() {
             'repairAmount',
             'description'
         )
+        console.log('#####', k, k.toString())
         console.log('Transaction has been submitted', k.toString())
 
         // Disconnect from the gateway.
