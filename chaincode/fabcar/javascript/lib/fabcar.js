@@ -151,6 +151,27 @@ class FabCar extends Contract {
 
         await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
     }
+
+    async updateBuyBackValue(ctx, userId, carId, buybackValue) {
+        const updateObject = {
+            buybackValue
+        }
+        const userAsBytes = await ctx.stub.getState(userId)
+
+        if (!userAsBytes) {
+            throw new Error(`${userId} does not exist`)
+        }
+
+        const data = JSON.parse(userAsBytes.toString())
+        for (var i = 0; i < data.carDetail.length; i++) {
+            const singleObj = data.carDetail[i]
+            if (singleObj.carId === carId) {
+                data.carDetail[i].buybackValue = buybackValue
+            }
+        }
+
+        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+    }
 }
 
 module.exports = FabCar
