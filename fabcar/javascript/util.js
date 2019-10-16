@@ -76,6 +76,7 @@ const addCar = async data => {
             data.modelCode,
             data.modelName,
             data.carMake,
+            data.carRegistrationNo,
             data.carChasisNo,
             data.buybackValue,
             data.sellAlert
@@ -115,6 +116,7 @@ const addService = async data => {
             data.carID,
             data.serviceNo,
             data.serviceType,
+            data.servicedDate,
             data.milesSchedule,
             data.daysSchedule,
             data.milesActuals,

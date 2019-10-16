@@ -52,6 +52,7 @@ async function main() {
             'CAR01',
             'serviceNo',
             'serviceType',
+            'servicedDate',
             'milesSchedule',
             'daysSchedule',
             'milesActuals',

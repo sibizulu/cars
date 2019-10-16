@@ -54,6 +54,7 @@ async function main() {
             'modelCode',
             'modelName',
             'carMake',
+            'carRegistrationNo',
             'carChasisNo',
             'buybackValue',
             'sellAlert'
