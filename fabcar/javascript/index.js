@@ -204,6 +204,29 @@ const init = async () => {
     })
 
     server.route({
+        method: 'PUT',
+        path: '/car/update',
+        options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                const res = await util.updateBuyBackValue(payload)
+
+                return h.response({ carID: res, success: true })
+            },
+            validate: {
+                payload: {
+                    userID: Joi.string().required(),
+                    carID: Joi.string().required(),
+                    buybackValue: Joi.string().required()
+                },
+                failAction: Relish.failAction
+            },
+            tags: ['api'],
+            description: 'Add a new car'
+        }
+    })
+
+    server.route({
         method: 'POST',
         path: '/test',
         options: {
