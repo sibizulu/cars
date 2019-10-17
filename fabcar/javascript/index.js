@@ -5,6 +5,7 @@ const Joi = require('@hapi/joi')
 const util = require('./util')
 const Inert = require('@hapi/inert')
 const Vision = require('@hapi/vision')
+const Boom = require('@hapi/boom')
 const HapiSwagger = require('hapi-swagger')
 const Pack = require('./package')
 // load the package and set custom message options
@@ -72,8 +73,12 @@ const init = async () => {
         options: {
             handler: async (request, h) => {
                 const params = request.params
-                const res = await util.getAllDetails(params.user)
-                return h.response({ userId: res, success: true })
+                try {
+                    const res = await util.getAllDetails(params.user)
+                    return h.response({ userId: res, success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
             },
             validate: {
                 params: {
@@ -92,9 +97,12 @@ const init = async () => {
         options: {
             handler: async (request, h) => {
                 const payload = request.payload
-                const res = await util.addService(payload)
-
-                return h.response({ success: true })
+                try {
+                    const res = await util.addService(payload)
+                    return h.response({ success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
             },
             validate: {
                 payload: {
@@ -124,9 +132,12 @@ const init = async () => {
         options: {
             handler: async (request, h) => {
                 const payload = request.payload
-                const res = await util.addInsurance(payload)
-
-                return h.response({ success: true })
+                try {
+                    const res = await util.addInsurance(payload)
+                    return h.response({ success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
             },
             validate: {
                 payload: {
@@ -154,9 +165,12 @@ const init = async () => {
         options: {
             handler: async (request, h) => {
                 const payload = request.payload
-                const res = await util.addUser(payload)
-
-                return h.response({ userID: res, success: true })
+                try {
+                    const res = await util.addUser(payload)
+                    return h.response({ userID: res, success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
             },
             validate: {
                 payload: {
@@ -177,9 +191,12 @@ const init = async () => {
         options: {
             handler: async (request, h) => {
                 const payload = request.payload
-                const res = await util.addCar(payload)
-
-                return h.response({ carID: res, success: true })
+                try {
+                    const res = await util.addCar(payload)
+                    return h.response({ carID: res, success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
             },
             validate: {
                 payload: {
@@ -199,30 +216,30 @@ const init = async () => {
         }
     })
 
-    server.route({
-        method: 'POST',
-        path: '/test',
-        options: {
-            handler: async (request, h) => {
-                return h.response({ message: 'Post method success' })
-            },
-            tags: ['api'],
-            description: 'Sample post'
-        }
-    })
-
-    server.route({
-        method: 'GET',
-        path: '/test',
-        options: {
-            handler: async (request, h) => {
-                return h.response({ message: 'GET success' })
-            },
-
-            tags: ['api'],
-            description: 'Sample GET'
-        }
-    })
+    // server.route({
+    //     method: 'POST',
+    //     path: '/test',
+    //     options: {
+    //         handler: async (request, h) => {
+    //             return h.response({ message: 'Post method success' })
+    //         },
+    //         tags: ['api'],
+    //         description: 'Sample post'
+    //     }
+    // })
+    //
+    // server.route({
+    //     method: 'GET',
+    //     path: '/test',
+    //     options: {
+    //         handler: async (request, h) => {
+    //             return h.response({ message: 'GET success' })
+    //         },
+    //
+    //         tags: ['api'],
+    //         description: 'Sample GET'
+    //     }
+    // })
 
     await server.start()
     console.log('Server running on %s', server.info.uri)
