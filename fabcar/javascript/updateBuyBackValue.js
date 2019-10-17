@@ -47,17 +47,10 @@ async function main() {
         const contract = network.getContract('fabcar')
 
         const k = await contract.submitTransaction(
-            'addCarDetails',
+            'updateBuyBackValue',
             'U01',
             'CAR01',
-            'Renault',
-            'modelCode',
-            'modelName',
-            'carMake',
-            'carRegistrationNo',
-            'carChasisNo',
-            'buybackValue',
-            'sellAlert'
+            'buybackValue'
         )
         console.log('Transaction has been submitted', k.toString())
 

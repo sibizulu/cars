@@ -36,6 +36,7 @@ class FabCar extends Contract {
         modelCode,
         modelName,
         carMake,
+        carRegistrationNo,
         carChasisNo,
         buybackValue,
         sellAlert
@@ -46,6 +47,7 @@ class FabCar extends Contract {
             modelCode,
             modelName,
             carMake,
+            carRegistrationNo,
             carChasisNo,
             buybackValue,
             sellAlert,
@@ -71,6 +73,7 @@ class FabCar extends Contract {
         carId,
         serviceNo,
         serviceType,
+        servicedDate,
         milesSchedule,
         daysSchedule,
         milesActuals,
@@ -82,6 +85,7 @@ class FabCar extends Contract {
         const serviceObject = {
             serviceNo,
             serviceType,
+            servicedDate,
             milesSchedule,
             daysSchedule,
             milesActuals,
@@ -142,6 +146,27 @@ class FabCar extends Contract {
             const singleObj = data.carDetail[i]
             if (singleObj.carId === carId) {
                 data.carDetail[i].insuranceDetail.push(insuranceObject)
+            }
+        }
+
+        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+    }
+
+    async updateBuyBackValue(ctx, userId, carId, buybackValue) {
+        const updateObject = {
+            buybackValue
+        }
+        const userAsBytes = await ctx.stub.getState(userId)
+
+        if (!userAsBytes) {
+            throw new Error(`${userId} does not exist`)
+        }
+
+        const data = JSON.parse(userAsBytes.toString())
+        for (var i = 0; i < data.carDetail.length; i++) {
+            const singleObj = data.carDetail[i]
+            if (singleObj.carId === carId) {
+                data.carDetail[i].buybackValue = buybackValue
             }
         }
 

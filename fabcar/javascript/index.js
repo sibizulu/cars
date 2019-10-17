@@ -20,11 +20,13 @@ const Relish = require('relish')({
         modelCode: 'Missing modelCode',
         modelName: 'Missing modelName',
         carMake: 'Missing carMake',
+        carRegistrationNo: 'Missing carRegistrationNo',
         carChasisNo: 'Missing carChasisNo',
         buybackValue: 'Missing buybackValue',
         sellAlert: 'Missing sellAlert',
         serviceNo: 'Missing serviceNo',
         serviceType: 'Missing serviceType',
+        servicedDate: 'Missing servicedDate',
         milesSchedule: 'Missing milesSchedule',
         daysSchedule: 'Missing daysSchedule',
         milesActuals: 'Missing milesActuals',
@@ -110,6 +112,7 @@ const init = async () => {
                     carID: Joi.string().required(),
                     serviceNo: Joi.string().required(),
                     serviceType: Joi.string().required(),
+                    servicedDate: Joi.string().required(),
                     milesSchedule: Joi.string().required(),
                     daysSchedule: Joi.string().required(),
                     milesActuals: Joi.string().required(),
@@ -205,9 +208,36 @@ const init = async () => {
                     modelCode: Joi.string().required(),
                     modelName: Joi.string().required(),
                     carMake: Joi.string().required(),
+                    carRegistrationNo: Joi.string().required(),
                     carChasisNo: Joi.string().required(),
                     buybackValue: Joi.string().required(),
                     sellAlert: Joi.string().required()
+                },
+                failAction: Relish.failAction
+            },
+            tags: ['api'],
+            description: 'Add a new car'
+        }
+    })
+
+    server.route({
+        method: 'PUT',
+        path: '/car/update',
+        options: {
+            handler: async (request, h) => {
+                const payload = request.payload
+                try {
+                    const res = await util.updateBuyBackValue(payload)
+                    return h.response({ carID: res, success: true })
+                } catch (err) {
+                    return Boom.tooManyRequests('Try again!')
+                }
+            },
+            validate: {
+                payload: {
+                    userID: Joi.string().required(),
+                    carID: Joi.string().required(),
+                    buybackValue: Joi.string().required()
                 },
                 failAction: Relish.failAction
             },
