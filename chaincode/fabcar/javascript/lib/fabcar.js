@@ -63,8 +63,11 @@ class FabCar extends Contract {
 
         const data = JSON.parse(userAsBytes.toString())
         data.carDetail.push(carObject)
-
-        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        try {
+            await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        } catch (e) {
+            throw e
+        }
     }
 
     async addService(
@@ -80,7 +83,8 @@ class FabCar extends Contract {
         daysActuals,
         serviceFlag,
         repairAmount,
-        description
+        description,
+        rewardsAwarded
     ) {
         const serviceObject = {
             serviceNo,
@@ -92,7 +96,8 @@ class FabCar extends Contract {
             daysActuals,
             serviceFlag,
             repairAmount,
-            description
+            description,
+            rewardsAwarded
         }
 
         const userAsBytes = await ctx.stub.getState(userId)
@@ -109,7 +114,11 @@ class FabCar extends Contract {
                 data.carDetail[i].carService.push(serviceObject)
             }
         }
-        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        try {
+            await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        } catch (e) {
+            throw e
+        }
     }
 
     async addInsurance(
@@ -148,8 +157,11 @@ class FabCar extends Contract {
                 data.carDetail[i].insuranceDetail.push(insuranceObject)
             }
         }
-
-        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        try {
+            await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        } catch (e) {
+            throw e
+        }
     }
 
     async updateBuyBackValue(ctx, userId, carId, buybackValue) {
@@ -169,8 +181,11 @@ class FabCar extends Contract {
                 data.carDetail[i].buybackValue = buybackValue
             }
         }
-
-        await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        try {
+            await ctx.stub.putState(userId, Buffer.from(JSON.stringify(data)))
+        } catch (e) {
+            throw e
+        }
     }
 }
 
