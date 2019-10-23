@@ -41,7 +41,8 @@ const Relish = require('relish')({
         provider: 'Missing provider',
         validFrom: 'Missing validFrom',
         validTill: 'Missing validTill',
-        CoverageDetail: 'Missing CoverageDetail'
+        CoverageDetail: 'Missing CoverageDetail',
+        rewardsAwarded: 'Missing rewards Awarded'
     }
 })
 
@@ -130,7 +131,8 @@ const init = async () => {
                     daysActuals: Joi.string().required(),
                     serviceFlag: Joi.string().required(),
                     repairAmount: Joi.string().required(),
-                    description: Joi.string().required()
+                    description: Joi.string().required(),
+                    rewardsAwarded: Joi.string().required()
                 },
 
                 failAction: Relish.failAction

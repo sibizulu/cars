@@ -45,7 +45,7 @@ const addUser = async data => {
         return id
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`)
-        process.exit(1)
+        //  process.exit(1)
     }
 }
 
@@ -88,7 +88,7 @@ const addCar = async data => {
         return id
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`)
-        process.exit(1)
+        //process.exit(1)
     }
 }
 
@@ -123,13 +123,14 @@ const addService = async data => {
             data.daysActuals,
             data.serviceFlag,
             data.repairAmount,
-            data.description
+            data.description,
+            data.rewardsAwarded
         )
         console.log('Transaction has been submitted', k.toString())
         await gateway.disconnect()
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`)
-        process.exit(1)
+        //process.exit(1)
     }
 }
 
@@ -166,7 +167,7 @@ const addInsurance = async data => {
         await gateway.disconnect()
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`)
-        process.exit(1)
+        //process.exit(1)
     }
 }
 
@@ -195,7 +196,7 @@ const getAllDetails = async userID => {
         return JSON.parse(result.toString())
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`)
-        process.exit(1)
+        //process.exit(1)
     }
 }
 const updateBuyBackValue = async data => {
@@ -224,7 +225,7 @@ const updateBuyBackValue = async data => {
         await gateway.disconnect()
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`)
-        process.exit(1)
+        //  process.exit(1)
     }
 }
 

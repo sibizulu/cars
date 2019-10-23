@@ -59,7 +59,8 @@ async function main() {
             'daysActuals',
             'serviceFlag',
             'repairAmount',
-            'description'
+            'description',
+            'rewardsAwarded'
         )
         console.log('#####', k, k.toString())
         console.log('Transaction has been submitted', k.toString())
