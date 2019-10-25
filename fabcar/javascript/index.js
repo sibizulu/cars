@@ -88,8 +88,13 @@ const init = async () => {
             handler: async (request, h) => {
                 const params = request.params
                 try {
+                    let status = false
                     const res = await util.getAllDetails(params.user)
-                    return h.response({ userId: res, success: true })
+                    if (res) {
+                        status = true
+                    }
+
+                    return h.response({ userId: res, success: status })
                 } catch (err) {
                     return Boom.tooManyRequests('Try again!')
                 }
